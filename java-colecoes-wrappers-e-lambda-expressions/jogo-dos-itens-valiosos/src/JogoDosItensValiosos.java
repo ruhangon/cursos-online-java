@@ -43,17 +43,17 @@ public class JogoDosItensValiosos {
 				seuItem = scan.nextInt();
 				scan.nextLine();
 				if (seuItem >= 1 && seuItem <= 5) {
-					if ((pontuacaoAtual + itens.get(seuItem-1).getPontuacao()) <= 10) {
-						pontuacaoAtual += itens.get(seuItem-1).getPontuacao();
+					if ((pontuacaoAtual + itens.get(seuItem - 1).getPontuacao()) <= 10) {
+						pontuacaoAtual += itens.get(seuItem - 1).getPontuacao();
 						itensEscolhidos.add(itens.get(seuItem - 1));
 						lucroTotal += itens.get(seuItem - 1).getPreco();
 						// mostra itens
 						System.out.println();
 						for (Item item : itensEscolhidos)
 							System.out.println(item);
-						System.out.println("Pontuação atual: "+ pontuacaoAtual);
+						System.out.println("Pontuação atual: " + pontuacaoAtual);
 						System.out.println();
-					} else if ((pontuacaoAtual + itens.get(seuItem-1).getPontuacao()) > 10) {
+					} else if ((pontuacaoAtual + itens.get(seuItem - 1).getPontuacao()) > 10) {
 						System.out.println("A pontuação passou de 10, você não pode adicionar esse item");
 						continue;
 					}
@@ -67,12 +67,19 @@ public class JogoDosItensValiosos {
 			}
 		} while (pontuacaoAtual != 10);
 
-		ItemComparator comparator = new ItemComparator();
-		itensEscolhidos.sort(comparator);
+		// sem lambda
+		// ItemComparator comparator = new ItemComparator();
+		// itensEscolhidos.sort(comparator);
+		// com lambda
+		itensEscolhidos.sort((item1, item2) -> Integer.compare(item1.getPontuacao(), item2.getPontuacao()));
 
 		System.out.println("Abaixo estão os itens que você escolheu");
-		for (Item item : itensEscolhidos)
-			System.out.println(item);
+		// sem lambda
+		// for (Item item : itensEscolhidos)
+		// System.out.println(item);
+		// com lambda
+		itensEscolhidos.forEach((item) -> System.out.println(item));
+
 		System.out.println("Lucro total: " + lucroTotal);
 
 		System.out.println("\n\nFim do programa");
