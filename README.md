@@ -14,3 +14,5 @@ Usado para estudos sobre java
 
 - Java parte 5: Pacotes e java.lang
 
+- Java e java.util: Coleções, Wrappers e Lambda expressions
+
