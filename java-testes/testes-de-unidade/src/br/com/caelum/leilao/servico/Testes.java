@@ -122,4 +122,36 @@ public class Testes {
 		assertEquals(600.0, leiloeiro.getMaioresLances().get(3).getValor(), 0.0001);
 	}
 
+	@Test
+	public void naoDeveAceitarDoisLancesSeguidosDoMesmoUsuario() {
+		Usuario joao = new Usuario("Joao");
+		Leilao leilao = new Leilao("Switch novo");
+		leilao.propoe(new Lance(joao, 200.0));
+		leilao.propoe(new Lance(joao, 400.0));
+		assertEquals(1, leilao.getLances().size());
+		assertEquals(200, leilao.getLances().get(0).getValor(), 0.0001);
+	}
+
+	@Test
+	public void deveDobrarUltimoLanceDado() {
+		Usuario joao = new Usuario("Joao");
+		Usuario jose = new Usuario("José");
+		Leilao leilao = new Leilao("Switch novo");
+		leilao.propoe(new Lance(joao, 400.0));
+		leilao.propoe(new Lance(jose, 600.0));
+		leilao.dobraLance(joao);
+		assertEquals(3, leilao.getLances().size());
+		assertEquals(400, leilao.getLances().get(0).getValor(), 0.0001);
+		assertEquals(600, leilao.getLances().get(1).getValor(), 0.0001);
+		assertEquals(1200, leilao.getLances().get(2).getValor(), 0.0001);
+	}
+
+	@Test
+	public void naoDeveDobrarLancePorNaoExistirAnterior() {
+		Usuario joao = new Usuario("Joao");
+		Leilao leilao = new Leilao("Switch novo");
+		leilao.dobraLance(joao);
+		assertEquals(0, leilao.getLances().size());
+	}
+
 }
