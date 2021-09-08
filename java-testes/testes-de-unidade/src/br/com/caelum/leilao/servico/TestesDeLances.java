@@ -42,6 +42,18 @@ public class TestesDeLances {
 		assertEquals(0, leilao.getLances().size());
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void naoDeveAceitarLanceZerado() {
+		Leilao leilao = new Leilao("Switch novo");
+		leilao.propoe(new Lance(joao, 0.0));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void naoDeveAceitarLanceNegativo() {
+		Leilao leilao = new Leilao("Switch novo");
+		leilao.propoe(new Lance(joao, -200.0));
+	}
+
 	@Before
 	public void setUp() {
 		this.joao = new Usuario("Joao");

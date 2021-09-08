@@ -13,15 +13,14 @@ public class Avaliador {
 	private List<Lance> maioresLances;
 
 	public void avalia(Leilao leilao) {
+		if (leilao.getLances().isEmpty()) {
+			throw new RuntimeException("Não é possível avaliar um leilão sem lances");
+		}
 		for (Lance lance : leilao.getLances()) {
 			if (lance.getValor() > maiorDeTodos)
 				maiorDeTodos = lance.getValor();
 			if (lance.getValor() < menorDeTodos)
 				menorDeTodos = lance.getValor();
-		}
-		if (leilao.getLances().isEmpty()) {
-			maiorDeTodos = 0;
-			menorDeTodos = 0;
 		}
 		descobreOsMaioresLances(leilao);
 	}
@@ -33,7 +32,7 @@ public class Avaliador {
 		}
 	}
 
-	public void descobreOsMaioresLances(Leilao leilao) {
+	private void descobreOsMaioresLances(Leilao leilao) {
 		List<Lance> lancesEmOrdem = new ArrayList<>(leilao.getLances());
 		maioresLances = new ArrayList<>();
 		lancesEmOrdem.sort((lance1, lance2) -> Double.compare(lance2.getValor(), lance1.getValor()));

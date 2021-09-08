@@ -51,6 +51,12 @@ public class TestesDeAvaliador {
 		assertEquals(esperado, leiloeiro.getMenorLance(), 0.0001);
 	}
 
+	@Test(expected = RuntimeException.class)
+	public void naoDeveAvaliarLeilaoSemLances() {
+		Leilao leilao = new Leilao("Switch novo");
+		leiloeiro.avalia(leilao);
+	}
+
 	@Test
 	public void deveVerificarMediaDosLances() {
 		Leilao leilao = new Leilao("Switch novo");
